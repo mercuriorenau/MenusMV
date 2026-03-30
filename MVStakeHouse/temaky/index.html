@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Marea Vista Steak House</title>
+    <title>Temaky — Marea Vista</title>
     <link rel="icon" type="image/png" href="../public/Logo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
@@ -14,7 +14,7 @@
             background-image: url('../public/Fondo.png'); background-size:150px 150px; background-repeat:repeat; animation: backgroundFloat 15s ease-in-out infinite;
         }
         .landing-page { position:fixed; inset:0; display:flex; align-items:center; justify-content:center; background-color: rgba(0,0,0,0.2); }
-        .content-box { background: rgba(0,0,0,0.4); border:2px solid rgba(255,255,255,0.3); border-radius:25px; backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); display:flex; flex-direction:column; align-items:center; gap:12px; color:#fff; max-width: 400px; padding: 20px; }
+        .content-box { background: rgba(0,0,0,0.4); border:2px solid rgba(255,255,255,0.3); border-radius:25px; padding:40px 50px; backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); display:flex; flex-direction:column; align-items:center; gap:20px; color:#fff; max-width: 400px; padding: 20px; gap: 12px; }
         .logo { width:100%; height:100%; object-fit:contain; object-position: center; }
         .logo-frame { display:flex; align-items:center; justify-content:center; width:min(88vw, 380px); height:18vh; min-height:120px; overflow:hidden; border-radius:12px; }
         @media (max-width:767px){
@@ -42,8 +42,9 @@
     <div class="landing-page">
         <div class="content-box">
             <div class="logo-frame">
-                <img src="../public/MVLOGORESTAURANTE.png" alt="Marea Vista Steak House" class="logo">
+                <img src="../public/Logo.png" alt="Marea Vista Hotel" class="logo">
             </div>
+            <p style="font-size:1.15rem;font-weight:600;letter-spacing:0.03em;">Temaky</p>
             <button type="button" class="menu-option" id="openMenuBtn">Ver menú</button>
             <a class="home-link" href="../">← Todos los menús</a>
             <div class="social-links">
@@ -57,9 +58,13 @@
 
     <div class="menu-container" id="menuContainer">
         <div class="menu-section active">
-            <div class="menu-page">
-                <img src="../public/menus/mv-steakhouse-01.webp" alt="Marea Vista Steak House — menú" loading="lazy">
-            </div>
+            <div class="menu-page"><img src="../public/menus/temaky-01.webp" alt="Temaky — página 1" loading="lazy"></div>
+            <div class="menu-page"><img src="../public/menus/temaky-02.webp" alt="Temaky — página 2" loading="lazy"></div>
+            <div class="menu-page"><img src="../public/menus/temaky-03.webp" alt="Temaky — página 3" loading="lazy"></div>
+            <div class="menu-page"><img src="../public/menus/temaky-04.webp" alt="Temaky — página 4" loading="lazy"></div>
+            <div class="menu-page"><img src="../public/menus/temaky-05.webp" alt="Temaky — página 5" loading="lazy"></div>
+            <div class="menu-page"><img src="../public/menus/temaky-06.webp" alt="Temaky — página 6" loading="lazy"></div>
+            <div class="menu-page"><img src="../public/menus/temaky-07.webp" alt="Temaky — página 7" loading="lazy"></div>
         </div>
     </div>
 

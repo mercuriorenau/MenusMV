@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bar - MV</title>
-    <link rel="icon" type="image/png" href="../public/pngzefe.png">
+    <title>Bar — Marea Vista</title>
+    <link rel="icon" type="image/png" href="../public/Logo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         * { margin:0; padding:0; box-sizing: border-box; }
@@ -23,36 +23,47 @@
         }
         .menu-option { width:100%; max-width:300px; background: linear-gradient(135deg, rgba(255,255,255,.15), rgba(255,255,255,.05)); border:2px solid rgba(255,255,255,.4); color:#fff; padding:15px 20px; border-radius:15px; cursor:pointer; transition: all .4s cubic-bezier(.4,0,.2,1); text-align:center; font-size:18px; font-weight:500; letter-spacing:.5px; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); box-shadow:0 4px 15px rgba(0,0,0,.2), 0 0 0 .5px rgba(255,255,255,.1) inset; position:relative; overflow:hidden; text-decoration:none; }
         .menu-option:hover { transform: translateY(-2px); }
+        .home-link { font-size:14px; color: rgba(255,255,255,0.85); text-decoration: none; border-bottom: 1px solid rgba(255,255,255,0.35); padding-bottom: 2px; }
+        .home-link:hover { color: #fff; }
         .social-links { display:flex; gap:20px; }
-        .lang-toggle { display:flex; gap:2px; background: rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.5); border-radius:999px; padding:4px; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.1); }
-        .lang-toggle button { appearance:none; border:none; color:#fff; background: transparent; padding:8px 14px; border-radius:999px; font-weight:600; cursor:pointer; transition: all .25s ease; letter-spacing:.3px; }
-        .lang-toggle button.active { background:#fff; color:#111; }
         .social-button { color:#fff; font-size:24px; transition: all .4s cubic-bezier(.4,0,.2,1); background: linear-gradient(135deg, rgba(255,255,255,.15), rgba(255,255,255,.05)); width:45px; height:45px; display:flex; align-items:center; justify-content:center; border-radius:50%; border:2px solid rgba(255,255,255,.4); text-decoration:none; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); box-shadow:0 4px 15px rgba(0,0,0,.2), 0 0 0 .5px rgba(255,255,255,.1) inset; }
         @media (max-width:767px){ body{background-size:80px 80px;} .content-box{max-width:360px; padding:18px; gap:10px; border-radius:20px;} .logo-frame{ width:min(86vw, 340px); height:17vh; min-height:110px; } }
+
+        .menu-container { position:fixed; inset:0; display:none; flex-direction:column; align-items:center; justify-content:flex-start; background-color: rgba(0,0,0,0.5); gap:20px; padding:20px 0 100px; overflow-y:auto; z-index:1500; -webkit-overflow-scrolling: touch; }
+        .menu-section { width:100%; display:none; flex-direction:column; align-items:center; gap:20px; }
+        .menu-section.active { display:flex; }
+        .menu-page { width:100%; display:flex; justify-content:center; padding:0 10px; }
+        .menu-page img { max-width:100%; height:auto; object-fit:contain; border-radius:8px; box-shadow:0 5px 15px rgba(0,0,0,.3); }
+        .back-button { position:fixed; top:20px; left:20px; display:none; background: rgba(0,0,0,.8); color:#fff; border:none; padding:10px 15px; border-radius:20px; cursor:pointer; z-index:2001; font-size:16px; }
+        @media (max-width: 767px) { .menu-page img { width: 95%; max-width: none; } }
+        @media (min-width: 1024px) { .menu-page img { max-width: 70%; } }
     </style>
 </head>
 <body>
     <div class="landing-page">
         <div class="content-box">
             <div class="logo-frame">
-                <img src="../public/MVBARLOGO.png" alt="Marea Bar & Lounge Logo" class="logo">
+                <img src="../public/MVBARLOGO.png" alt="Marea Bar & Lounge" class="logo">
             </div>
-            <button class="menu-option" id="openDrinksBtn">Menú Bebidas</button>
-            <button class="menu-option" id="openSnacksBtn">Menú Botanas</button>
+            <button type="button" class="menu-option" id="openMenuBtn">Menú bebidas</button>
+            <a class="home-link" href="../">← Todos los menús</a>
             <div class="social-links">
                 <a href="https://www.facebook.com/HotelMareaVista/" class="social-button" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook"></i></a>
                 <a href="https://www.instagram.com/mareavistahotel/?hl=en" class="social-button" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
             </div>
-            <div class="lang-toggle" id="langToggle" aria-label="Cambiar idioma">
-                <button type="button" class="active" data-value="es">ES</button>
-                <button type="button" data-value="en">EN</button>
-            </div>
         </div>
     </div>
 
-    <!-- Placeholder: agregaremos las imágenes cuando las tengas -->
+    <button type="button" class="back-button" id="backBtn" aria-label="Cerrar menú"><i class="fas fa-arrow-left"></i></button>
+
+    <div class="menu-container" id="menuContainer">
+        <div id="barMenu" class="menu-section active">
+            <div class="menu-page"><img src="../public/menus/bar-drinks-01.webp" alt="Bar — página 1" loading="lazy"></div>
+            <div class="menu-page"><img src="../public/menus/bar-drinks-02.webp" alt="Bar — página 2" loading="lazy"></div>
+        </div>
+    </div>
+
     <script>
-        // Bloquear regresar a la landing desde esta página
         (function lockBackNavigation(){
             try {
                 history.pushState(null, '', location.href);
@@ -62,32 +73,22 @@
             } catch (_) {}
         })();
 
-        const root = document.body;
-        root.setAttribute('data-lang', 'es');
-        const openDrinksBtn = document.getElementById('openDrinksBtn');
-        const openSnacksBtn = document.getElementById('openSnacksBtn');
-        const langToggle = document.getElementById('langToggle');
+        const landingPage = document.querySelector('.landing-page');
+        const menuContainer = document.getElementById('menuContainer');
+        const backButton = document.getElementById('backBtn');
+        const openMenuBtn = document.getElementById('openMenuBtn');
 
-        function syncTexts(){
-            const isEs = root.getAttribute('data-lang') === 'es';
-            openDrinksBtn.textContent = isEs ? 'Menú Bebidas' : 'Drinks Menu';
-            openSnacksBtn.textContent = isEs ? 'Menú Botanas' : 'Snacks Menu';
-        }
-        syncTexts();
-        langToggle.addEventListener('click', (e)=>{
-            const btn = e.target.closest('button');
-            if(!btn) return;
-            const val = btn.getAttribute('data-value');
-            root.setAttribute('data-lang', val);
-            langToggle.querySelectorAll('button').forEach(b=>b.classList.remove('active'));
-            btn.classList.add('active');
-            syncTexts();
+        openMenuBtn.addEventListener('click', () => {
+            landingPage.style.display = 'none';
+            menuContainer.style.display = 'flex';
+            backButton.style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'auto' });
         });
-
-        openDrinksBtn.addEventListener('click', ()=>{ alert('Próximamente: Drinks Menu.'); });
-        openSnacksBtn.addEventListener('click', ()=>{ alert('Próximamente: Snacks Menu.'); });
+        backButton.addEventListener('click', () => {
+            landingPage.style.display = 'flex';
+            menuContainer.style.display = 'none';
+            backButton.style.display = 'none';
+        });
     </script>
 </body>
 </html>
-
-
