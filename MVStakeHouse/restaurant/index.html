@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurante - MV</title>
+    <link rel="icon" type="image/png" href="../public/pngzefe.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        @keyframes backgroundFloat { 0%,100%{background-position:0 0;} 50%{background-position:10px 5px;} }
+        body {
+            min-height:100vh; width:100vw; display:flex; align-items:center; justify-content:center; font-family: Arial, sans-serif;
+            background-image: url('../public/Fondo.png'); background-size:150px 150px; background-repeat:repeat; animation: backgroundFloat 15s ease-in-out infinite;
+        }
+        .landing-page { position:fixed; inset:0; display:flex; align-items:center; justify-content:center; background-color: rgba(0,0,0,0.2); }
+        .content-box { background: rgba(0,0,0,0.4); border:2px solid rgba(255,255,255,0.3); border-radius:25px; padding:40px 50px; backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); display:flex; flex-direction:column; align-items:center; gap:20px; color:#fff; }
+        .logo { width:100%; height:100%; object-fit:contain; object-position: center; }
+        .logo-frame { display:flex; align-items:center; justify-content:center; width:min(88vw, 380px); height:18vh; min-height:120px; overflow:hidden; border-radius:12px; }
+        .content-box { max-width: 400px; padding: 20px; gap: 12px; }
+        @media (max-width:767px){
+            :root { --cropY: 50%; }
+            .content-box { max-width: 360px; padding: 18px; gap: 10px; }
+            .logo-frame { width:min(86vw, 340px); height: 17vh; min-height:110px; }
+        }
+        .menu-option { width:100%; max-width:300px; background: linear-gradient(135deg, rgba(255,255,255,.15), rgba(255,255,255,.05)); border:2px solid rgba(255,255,255,.4); color:#fff; padding:15px 20px; border-radius:15px; cursor:pointer; transition: all .4s cubic-bezier(.4,0,.2,1); text-align:center; font-size:18px; font-weight:500; letter-spacing:.5px; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); box-shadow:0 4px 15px rgba(0,0,0,.2), 0 0 0 .5px rgba(255,255,255,.1) inset; position:relative; overflow:hidden; text-decoration:none; }
+        .menu-option:hover { transform: translateY(-2px); }
+        .social-links { display:flex; gap:20px; }
+        .lang-toggle { display:flex; gap:2px; background: rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.5); border-radius:999px; padding:4px; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.1); }
+        .lang-toggle button { appearance:none; border:none; color:#fff; background: transparent; padding:8px 14px; border-radius:999px; font-weight:600; cursor:pointer; transition: all .25s ease; letter-spacing:.3px; }
+        .lang-toggle button.active { background:#fff; color:#111; }
+        .social-button { color:#fff; font-size:24px; transition: all .4s cubic-bezier(.4,0,.2,1); background: linear-gradient(135deg, rgba(255,255,255,.15), rgba(255,255,255,.05)); width:45px; height:45px; display:flex; align-items:center; justify-content:center; border-radius:50%; border:2px solid rgba(255,255,255,.4); text-decoration:none; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); box-shadow:0 4px 15px rgba(0,0,0,.2), 0 0 0 .5px rgba(255,255,255,.1) inset; }
+        @media (max-width:767px){ body{background-size:80px 80px;} .content-box{padding:30px; border-radius:20px;} }
+
+        /* Menu viewer same as home */
+        .menu-container { position:fixed; inset:0; display:none; flex-direction:column; align-items:center; justify-content:flex-start; background-color: rgba(0,0,0,0.5); gap:20px; padding:20px 0 100px; overflow-y:auto; z-index:1500; }
+        .menu-section { width:100%; display:none; flex-direction:column; align-items:center; gap:20px; }
+        .menu-section.active { display:flex; }
+        .menu-page { width:100%; display:flex; justify-content:center; padding:0 10px; }
+        .menu-page img { max-width:100%; height:auto; object-fit:contain; border-radius:8px; box-shadow:0 5px 15px rgba(0,0,0,.3); }
+        .back-button { position:fixed; top:20px; left:20px; display:none; background: rgba(0,0,0,.8); color:#fff; border:none; padding:10px 15px; border-radius:20px; cursor:pointer; z-index:2001; }
+    </style>
+</head>
+<body>
+    <div class="landing-page">
+        <div class="content-box">
+            <div class="logo-frame">
+                <img src="../public/MVLOGORESTAURANTE.png" alt="MV Restaurante Logo" class="logo">
+            </div>
+            <button class="menu-option" id="openBreakfastBtn">Menú Desayunos</button>
+            <button class="menu-option" id="openLunchBtn">Menú Comidas</button>
+            <div class="social-links">
+                <a href="https://www.facebook.com/HotelMareaVista/" class="social-button" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook"></i></a>
+                <a href="https://www.instagram.com/mareavistahotel/?hl=en" class="social-button" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+            </div>
+            <div class="lang-toggle" id="langToggle" aria-label="Cambiar idioma">
+                <button type="button" class="active" data-value="es">ES</button>
+                <button type="button" data-value="en">EN</button>
+            </div>
+        </div>
+    </div>
+
+    <button class="back-button"><i class="fas fa-arrow-left"></i></button>
+
+    <div class="menu-container">
+        <div id="breakfast" class="menu-section active">
+            <div class="menu-page">
+                <img src="../public/Menú desayunos_page-0001.webp" alt="Menú Desayunos - Página 1">
+            </div>
+            <div class="menu-page">
+                <img src="../public/Menú desayunos_page-0002.webp" alt="Menú Desayunos - Página 2">
+            </div>
+        </div>
+        <div id="lunch" class="menu-section">
+            <div class="menu-page">
+                <img src="" alt="Menú Comidas - Próximamente">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Bloquear regresar a la landing desde esta página
+        (function lockBackNavigation(){
+            try {
+                history.pushState(null, '', location.href);
+                window.addEventListener('popstate', function(){
+                    history.pushState(null, '', location.href);
+                });
+            } catch (_) {}
+        })();
+
+        const root = document.body;
+        root.setAttribute('data-lang', 'es');
+        const landingPage = document.querySelector('.landing-page');
+        const menuContainer = document.querySelector('.menu-container');
+        const backButton = document.querySelector('.back-button');
+        const langToggle = document.getElementById('langToggle');
+        const openBreakfastBtn = document.getElementById('openBreakfastBtn');
+        const openLunchBtn = document.getElementById('openLunchBtn');
+
+        function syncTexts(){
+            const isEs = root.getAttribute('data-lang') === 'es';
+            openBreakfastBtn.textContent = isEs ? 'Menú Desayunos' : 'Breakfast Menu';
+            openLunchBtn.textContent = isEs ? 'Menú Comidas' : 'Lunch/Dinner Menu';
+        }
+
+        langToggle.addEventListener('click', (e)=>{
+            const btn = e.target.closest('button');
+            if(!btn) return;
+            const val = btn.getAttribute('data-value');
+            root.setAttribute('data-lang', val);
+            langToggle.querySelectorAll('button').forEach(b=>b.classList.remove('active'));
+            btn.classList.add('active');
+            syncTexts();
+        });
+        syncTexts();
+
+        function openSection(sectionId){
+            landingPage.style.display = 'none';
+            menuContainer.style.display = 'flex';
+            backButton.style.display = 'block';
+            document.querySelectorAll('.menu-section').forEach(s=>s.classList.remove('active'));
+            document.getElementById(sectionId).classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'auto' });
+        }
+        openBreakfastBtn.addEventListener('click', ()=> openSection('breakfast'));
+        openLunchBtn.addEventListener('click', ()=> openSection('lunch'));
+        backButton.addEventListener('click', ()=>{
+            landingPage.style.display = 'flex';
+            menuContainer.style.display = 'none';
+            backButton.style.display = 'none';
+        });
+    </script>
+</body>
+</html>
+
+
