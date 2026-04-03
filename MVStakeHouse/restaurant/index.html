@@ -212,6 +212,7 @@
     <script>
         /* Capturar #menu antes de pushState: en algunos navegadores el hash se pierde al bloquear el “atrás” */
         const openMenuFromDeepLink = location.hash === '#menu';
+        const returnToBar = new URLSearchParams(location.search).get('ref') === 'bar';
 
         (function lockBackNavigation(){
             try {
@@ -233,6 +234,10 @@
             window.scrollTo({ top: 0, behavior: 'auto' });
         }
         function closeMenuViewer() {
+            if (returnToBar) {
+                window.location.href = '../bar/';
+                return;
+            }
             landingPage.style.display = 'flex';
             menuContainer.style.display = 'none';
             backButton.style.display = 'none';
