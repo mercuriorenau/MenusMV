@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menús — Marea Vista</title>
-    <link rel="icon" type="image/png" href="./public/Logo.png">
+    <link rel="icon" type="image/png" href="./public/MVLOGORESTAURANTE.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         * {
@@ -14,31 +14,39 @@
         }
         
         @keyframes backgroundFloat {
-            0%, 100% {
-                background-position: 0px 0px;
-            }
-            50% {
-                background-position: 10px 5px;
-            }
+            0%, 100% { background-position: 0 0; }
+            50% { background-position: 14px 10px; }
         }
-        
+
         body {
             margin: 0;
             padding: 0;
             min-height: 100vh;
             width: 100vw;
-            background-image: url('./public/Fondo.png');
-            background-size: 150px 150px;
-            background-repeat: repeat;
-            background-position: top left;
-            background-attachment: scroll;
-            animation: backgroundFloat 15s ease-in-out infinite;
+            position: relative;
+            background-color: #070707;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            background-color: transparent;
             font-family: Arial, sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Patrón de fondo con el logo del hotel (mosaico suave) */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            background-image: url('./public/MVLOGORESTAURANTE.png');
+            background-size: 100px auto;
+            background-repeat: repeat;
+            background-position: 0 0;
+            opacity: 0.1;
+            filter: grayscale(1) brightness(1.35);
+            animation: backgroundFloat 20s ease-in-out infinite;
         }
 
         .landing-page {
@@ -47,13 +55,13 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background-color: rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            background-color: rgba(0, 0, 0, 0.35);
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             gap: 20px;
-            z-index: 2000;
             padding: 0;
         }
 
@@ -75,12 +83,23 @@
             gap: 20px;
         }
 
+        .logo-frame {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: min(88vw, 300px);
+            max-height: 220px;
+        }
+
         .logo {
-            width: 210px;
-            height: 210px;
-            margin-bottom: 0;
-            border-radius: 50%;
-            object-fit: cover;
+            width: 100%;
+            max-width: 280px;
+            height: auto;
+            max-height: 210px;
+            object-fit: contain;
+            object-position: center;
+            display: block;
+            filter: drop-shadow(0 4px 24px rgba(0, 0, 0, 0.45));
         }
 
         .menu-option {
@@ -266,11 +285,11 @@
         }
 
         @media (max-width: 767px) {
-            body {
-                background-size: 80px 80px;
-                overflow-x: hidden;
+            body::before {
+                background-size: 76px auto;
+                opacity: 0.09;
             }
-            
+
             .content-box {
                 padding: 30px 30px;
                 border-radius: 20px;
@@ -282,9 +301,13 @@
                 font-size: 16px;
             }
 
+            .logo-frame {
+                max-height: 200px;
+            }
+
             .logo {
-                width: 250px;
-                height: 250px;
+                max-width: 260px;
+                max-height: 190px;
             }
 
             .menu-container {
@@ -310,10 +333,10 @@
         }
 
         @media (max-width: 896px) and (orientation: landscape) {
-            body {
-                background-size: 100px 100px;
+            body::before {
+                background-size: 88px auto;
             }
-            
+
             .menu-container {
                 padding: 10px;
             }
@@ -353,7 +376,9 @@
 <body>
     <div class="landing-page">
         <div class="content-box">
-            <img src="./public/Logo.png" alt="Marea Vista Hotel" class="logo">
+            <div class="logo-frame">
+                <img src="./public/MVLOGORESTAURANTE.png" alt="Marea Vista Hotel" class="logo">
+            </div>
             <a class="menu-option" href="bar/">Bar / Barra</a>
             <a class="menu-option" href="temaky/">Temaky</a>
             <a class="menu-option" href="restaurant/">Marea Vista Steak House</a>
