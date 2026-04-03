@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menús — Marea Vista</title>
-    <link rel="icon" type="image/jpeg" href="./public/menus/LOGOHOTEL.jpg">
+    <link rel="icon" type="image/png" href="./public/MVLOGORESTAURANTE.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         * {
@@ -47,7 +47,7 @@
             min-height: 900px;
             transform: translate(-50%, -50%) rotate(-14deg);
             transform-origin: center center;
-            background-image: url('./public/menus/LOGOHOTEL.jpg');
+            background-image: url('./public/MVLOGORESTAURANTE.png');
             background-size: 118px auto;
             background-repeat: repeat;
             background-position: 0 0;
@@ -110,6 +110,7 @@
         }
 
         .menu-option {
+            display: block;
             width: 100%;
             max-width: 300px;
             background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05));
@@ -120,6 +121,8 @@
             cursor: pointer;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             text-align: center;
+            text-decoration: none;
+            box-sizing: border-box;
             font-size: 18px;
             font-weight: 500;
             letter-spacing: 0.5px;
@@ -142,7 +145,13 @@
             transition: left 0.5s;
         }
 
+        .menu-option:visited {
+            color: #fff;
+        }
+
         .menu-option:hover {
+            text-decoration: none;
+            color: #fff;
             background: linear-gradient(135deg, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.15));
             border-color: rgba(255, 255, 255, 0.6);
             transform: translateY(-2px);
@@ -389,7 +398,7 @@
     <div class="landing-page">
         <div class="content-box">
             <div class="logo-frame">
-                <img src="./public/menus/LOGOHOTEL.jpg" alt="Marea Vista Hotel" class="logo">
+                <img src="./public/MVLOGORESTAURANTE.png" alt="Marea Vista Hotel" class="logo">
             </div>
             <a class="menu-option" href="bar/">Bar / Barra</a>
             <a class="menu-option" href="temaky/">Temaky</a>
