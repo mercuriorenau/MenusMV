@@ -335,6 +335,8 @@
     </div>
 
     <script>
+        const openMenuFromDeepLink = location.hash === '#menu';
+
         (function lockBackNavigation(){
             try {
                 history.pushState(null, '', location.href);
@@ -370,6 +372,9 @@
             if (location.hash === '#menu') {
                 openMenuViewer();
             }
+        }
+        if (openMenuFromDeepLink) {
+            openMenuViewer();
         }
         applyHashMenu();
         window.addEventListener('hashchange', applyHashMenu);

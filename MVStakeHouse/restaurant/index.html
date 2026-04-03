@@ -210,6 +210,9 @@
     </div>
 
     <script>
+        /* Capturar #menu antes de pushState: en algunos navegadores el hash se pierde al bloquear el “atrás” */
+        const openMenuFromDeepLink = location.hash === '#menu';
+
         (function lockBackNavigation(){
             try {
                 history.pushState(null, '', location.href);
@@ -245,6 +248,9 @@
             if (location.hash === '#menu') {
                 openMenuViewer();
             }
+        }
+        if (openMenuFromDeepLink) {
+            openMenuViewer();
         }
         applyHashMenu();
         window.addEventListener('hashchange', applyHashMenu);
