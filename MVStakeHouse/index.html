@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menús — Marea Vista</title>
-    <link rel="icon" type="image/png" href="./public/MVLOGORESTAURANTE.png">
+    <link rel="icon" type="image/jpeg" href="./public/menus/LOGOHOTEL.jpg">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         * {
@@ -15,7 +15,7 @@
         
         @keyframes backgroundFloat {
             0%, 100% { background-position: 0 0; }
-            50% { background-position: 14px 10px; }
+            50% { background-position: 18px 14px; }
         }
 
         body {
@@ -30,23 +30,30 @@
             justify-content: center;
             align-items: center;
             font-family: Arial, sans-serif;
-            overflow-x: hidden;
+            overflow: hidden;
         }
 
-        /* Patrón de fondo con el logo del hotel (mosaico suave) */
+        /* Patrón del hotel: mosaico rotado, más legible */
         body::before {
             content: '';
             position: fixed;
-            inset: 0;
             z-index: 0;
             pointer-events: none;
-            background-image: url('./public/MVLOGORESTAURANTE.png');
-            background-size: 100px auto;
+            top: 50%;
+            left: 50%;
+            width: 165%;
+            min-width: 900px;
+            height: 165%;
+            min-height: 900px;
+            transform: translate(-50%, -50%) rotate(-14deg);
+            transform-origin: center center;
+            background-image: url('./public/menus/LOGOHOTEL.jpg');
+            background-size: 118px auto;
             background-repeat: repeat;
             background-position: 0 0;
-            opacity: 0.1;
-            filter: grayscale(1) brightness(1.35);
-            animation: backgroundFloat 20s ease-in-out infinite;
+            opacity: 0.22;
+            filter: grayscale(0.35) brightness(1.45) contrast(1.12);
+            animation: backgroundFloat 22s ease-in-out infinite;
         }
 
         .landing-page {
@@ -286,8 +293,12 @@
 
         @media (max-width: 767px) {
             body::before {
-                background-size: 76px auto;
-                opacity: 0.09;
+                width: 180%;
+                height: 180%;
+                background-size: 92px auto;
+                opacity: 0.18;
+                transform: translate(-50%, -50%) rotate(-12deg);
+                filter: grayscale(0.35) brightness(1.4) contrast(1.1);
             }
 
             .content-box {
@@ -334,7 +345,8 @@
 
         @media (max-width: 896px) and (orientation: landscape) {
             body::before {
-                background-size: 88px auto;
+                background-size: 100px auto;
+                transform: translate(-50%, -50%) rotate(-13deg);
             }
 
             .menu-container {
@@ -377,7 +389,7 @@
     <div class="landing-page">
         <div class="content-box">
             <div class="logo-frame">
-                <img src="./public/MVLOGORESTAURANTE.png" alt="Marea Vista Hotel" class="logo">
+                <img src="./public/menus/LOGOHOTEL.jpg" alt="Marea Vista Hotel" class="logo">
             </div>
             <a class="menu-option" href="bar/">Bar / Barra</a>
             <a class="menu-option" href="temaky/">Temaky</a>

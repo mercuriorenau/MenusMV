@@ -4,22 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Marea Vista Steak House</title>
-    <link rel="icon" type="image/png" href="../public/Logo.png">
+    <link rel="icon" type="image/jpeg" href="../public/menus/LOGOSTEAK.jpg">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        @keyframes backgroundFloat { 0%,100%{background-position:0 0;} 50%{background-position:10px 5px;} }
+        @keyframes backgroundFloat { 0%, 100% { background-position: 0 0; } 50% { background-position: 18px 14px; } }
         body {
-            min-height:100vh; width:100vw; display:flex; align-items:center; justify-content:center; font-family: Arial, sans-serif;
-            background-image: url('../public/Fondo.png'); background-size:150px 150px; background-repeat:repeat; animation: backgroundFloat 15s ease-in-out infinite;
+            min-height: 100vh; width: 100vw; position: relative; background-color: #070707;
+            display: flex; align-items: center; justify-content: center; font-family: Arial, sans-serif;
+            overflow-x: hidden;
         }
-        .landing-page { position:fixed; inset:0; display:flex; align-items:center; justify-content:center; background-color: rgba(0,0,0,0.2); }
+        body::before {
+            content: ''; position: fixed; z-index: 0; pointer-events: none;
+            top: 50%; left: 50%; width: 165%; min-width: 900px; height: 165%; min-height: 900px;
+            transform: translate(-50%, -50%) rotate(-14deg); transform-origin: center center;
+            background-image: url('../public/menus/LOGOSTEAK.jpg');
+            background-size: 108px auto; background-repeat: repeat; background-position: 0 0;
+            opacity: 0.22; filter: grayscale(0.28) brightness(1.4) contrast(1.1);
+            animation: backgroundFloat 22s ease-in-out infinite;
+        }
+        .landing-page { position:fixed; inset:0; z-index:1; display:flex; align-items:center; justify-content:center; background-color: rgba(0,0,0,0.35); }
         .content-box { background: rgba(0,0,0,0.4); border:2px solid rgba(255,255,255,0.3); border-radius:25px; backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); display:flex; flex-direction:column; align-items:center; gap:12px; color:#fff; max-width: 400px; padding: 20px; }
-        .logo { width:100%; height:100%; object-fit:contain; object-position: center; }
-        .logo-frame { display:flex; align-items:center; justify-content:center; width:min(88vw, 380px); height:18vh; min-height:120px; overflow:hidden; border-radius:12px; }
+        .logo-frame { display:flex; align-items:center; justify-content:center; width: min(88vw, 280px); max-height: 200px; }
+        .logo { width: 100%; max-height: 190px; height: auto; object-fit: contain; display: block; filter: drop-shadow(0 4px 22px rgba(0,0,0,0.5)); }
         @media (max-width:767px){
-            .content-box { max-width: 360px; padding: 18px; gap: 10px; }
-            .logo-frame { width:min(86vw, 340px); height: 17vh; min-height:110px; }
+            body::before { width: 180%; height: 180%; background-size: 88px auto; opacity: 0.18; transform: translate(-50%, -50%) rotate(-12deg); }
+            .content-box { max-width: 360px; padding: 18px; gap: 10px; border-radius: 20px; }
+            .logo-frame { max-height: 170px; }
+            .logo { max-height: 160px; }
+        }
+        @media (max-width: 896px) and (orientation: landscape) {
+            body::before { background-size: 96px auto; transform: translate(-50%, -50%) rotate(-13deg); }
         }
         .menu-option { width:100%; max-width:300px; background: linear-gradient(135deg, rgba(255,255,255,.15), rgba(255,255,255,.05)); border:2px solid rgba(255,255,255,.4); color:#fff; padding:15px 20px; border-radius:15px; cursor:pointer; transition: all .4s cubic-bezier(.4,0,.2,1); text-align:center; font-size:18px; font-weight:500; letter-spacing:.5px; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); box-shadow:0 4px 15px rgba(0,0,0,.2), 0 0 0 .5px rgba(255,255,255,.1) inset; position:relative; overflow:hidden; text-decoration:none; }
         .menu-option:hover { transform: translateY(-2px); }
@@ -27,9 +42,8 @@
         .home-link:hover { color: #fff; }
         .social-links { display:flex; gap:20px; }
         .social-button { color:#fff; font-size:24px; transition: all .4s cubic-bezier(.4,0,.2,1); background: linear-gradient(135deg, rgba(255,255,255,.15), rgba(255,255,255,.05)); width:45px; height:45px; display:flex; align-items:center; justify-content:center; border-radius:50%; border:2px solid rgba(255,255,255,.4); text-decoration:none; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); box-shadow:0 4px 15px rgba(0,0,0,.2), 0 0 0 .5px rgba(255,255,255,.1) inset; }
-        @media (max-width:767px){ body{background-size:80px 80px;} .content-box{border-radius:20px;} }
 
-        .menu-container { position:fixed; inset:0; display:none; flex-direction:column; align-items:center; justify-content:flex-start; background-color: rgba(0,0,0,0.5); gap:20px; padding:20px 0 100px; overflow-y:auto; z-index:1500; -webkit-overflow-scrolling: touch; }
+        .menu-container { position:fixed; inset:0; display:none; flex-direction:column; align-items:center; justify-content:flex-start; background-color: rgba(0,0,0,0.58); gap:20px; padding:20px 0 100px; overflow-y:auto; z-index:1500; -webkit-overflow-scrolling: touch; }
         .menu-section { width:100%; display:flex; flex-direction:column; align-items:center; gap:20px; }
         .menu-page { width:100%; display:flex; justify-content:center; padding:0 10px; }
         .menu-page img { max-width:100%; height:auto; object-fit:contain; border-radius:8px; box-shadow:0 5px 15px rgba(0,0,0,.3); }
@@ -42,7 +56,7 @@
     <div class="landing-page">
         <div class="content-box">
             <div class="logo-frame">
-                <img src="../public/MVLOGORESTAURANTE.png" alt="Marea Vista Steak House" class="logo">
+                <img src="../public/menus/LOGOSTEAK.jpg" alt="MV Steak House Sonora Baja" class="logo">
             </div>
             <button type="button" class="menu-option" id="openMenuBtn">Ver menú</button>
             <a class="home-link" href="../">← Todos los menús</a>
