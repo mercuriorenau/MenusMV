@@ -83,6 +83,14 @@
                 transform: translate(-50%, -50%) rotate(-12deg);
                 filter: grayscale(0.15) brightness(1.65) contrast(1.12) saturate(1.06);
             }
+            .menu-container::before {
+                width: 180%;
+                height: 180%;
+                background-size: 92px auto;
+                opacity: 0.28;
+                transform: translate(-50%, -50%) rotate(-12deg);
+                filter: grayscale(0.15) brightness(1.65) contrast(1.12) saturate(1.06);
+            }
         }
         .menu-option { display: flex; align-items: center; justify-content: center; width:100%; max-width:300px; background: linear-gradient(135deg, rgba(255,255,255,.15), rgba(255,255,255,.05)); border:2px solid rgba(255,255,255,.4); color:#fff; padding:15px 20px; border-radius:15px; cursor:pointer; transition: all .4s cubic-bezier(.4,0,.2,1); text-align:center; font-size:18px; font-weight:500; letter-spacing:.5px; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); box-shadow:0 4px 15px rgba(0,0,0,.2), 0 0 0 .5px rgba(255,255,255,.1) inset; position:relative; overflow:hidden; text-decoration:none; box-sizing: border-box; }
         .menu-option:hover { transform: translateY(-2px); }
@@ -95,13 +103,82 @@
                 background-size: 100px auto;
                 transform: translate(-50%, -50%) rotate(-13deg);
             }
+            .menu-container::before {
+                background-size: 100px auto;
+                transform: translate(-50%, -50%) rotate(-13deg);
+            }
         }
 
-        .menu-container { position:fixed; inset:0; display:none; flex-direction:column; align-items:center; justify-content:flex-start; background-color: rgba(7,7,7,0.92); gap:20px; padding:20px 0 100px; overflow-y:auto; z-index:1500; -webkit-overflow-scrolling: touch; }
-        .menu-section { width:100%; display:none; flex-direction:column; align-items:center; gap:20px; }
-        .menu-section.active { display:flex; }
-        .menu-page { width:100%; display:flex; justify-content:center; padding:0 10px; }
-        .menu-page img { max-width:100%; height:auto; object-fit:contain; border-radius:8px; box-shadow:0 5px 15px rgba(0,0,0,.3); }
+        /* Visor bebidas: mismo patrón y velo que la landing */
+        .menu-container {
+            position: fixed;
+            inset: 0;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            background-color: #0d0d0f;
+            gap: 20px;
+            padding: 20px 0 100px;
+            overflow-y: auto;
+            z-index: 1500;
+            -webkit-overflow-scrolling: touch;
+        }
+        .menu-container::before {
+            content: '';
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            width: 165%;
+            min-width: 900px;
+            height: 165%;
+            min-height: 900px;
+            transform: translate(-50%, -50%) rotate(-14deg);
+            transform-origin: center center;
+            z-index: 0;
+            pointer-events: none;
+            background-image: url('../public/MVBARLOGO.png');
+            background-size: 118px auto;
+            background-repeat: repeat;
+            background-position: 0 0;
+            opacity: 0.34;
+            filter: grayscale(0.15) brightness(1.75) contrast(1.14) saturate(1.08);
+            animation: backgroundFloat 22s ease-in-out infinite;
+        }
+        .menu-container::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            background-color: rgba(0, 0, 0, 0.26);
+        }
+        .menu-section {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+        .menu-section.active { display: flex; }
+        .menu-page {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            padding: 0 10px;
+            background: transparent;
+        }
+        .menu-page img {
+            max-width: 100%;
+            height: auto;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+        }
         .back-button { position:fixed; top:20px; left:20px; display:none; background: rgba(0,0,0,.8); color:#fff; border:none; padding:10px 15px; border-radius:20px; cursor:pointer; z-index:2001; font-size:16px; }
         @media (max-width: 767px) { .menu-page img { width: 95%; max-width: none; } }
         @media (min-width: 1024px) { .menu-page img { max-width: 70%; } }
