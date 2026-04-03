@@ -8,55 +8,308 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        @keyframes backgroundFloat { 0%, 100% { background-position: 0 0; } 50% { background-position: 18px 14px; } }
-        body {
-            min-height: 100vh; width: 100vw; position: relative; background-color: #070707;
-            display: flex; align-items: center; justify-content: center; font-family: Arial, sans-serif;
-            overflow-x: hidden;
+
+        @keyframes backgroundFloat {
+            0%, 100% { background-position: 0 0; }
+            50% { background-position: 18px 14px; }
         }
+
+        body {
+            min-height: 100vh;
+            width: 100vw;
+            position: relative;
+            background-color: #f4f4f6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: Arial, sans-serif;
+            overflow-x: hidden;
+            color: #1a1a1a;
+        }
+
         body::before {
-            content: ''; position: fixed; z-index: 0; pointer-events: none;
-            top: 50%; left: 50%; width: 165%; min-width: 900px; height: 165%; min-height: 900px;
-            transform: translate(-50%, -50%) rotate(-14deg); transform-origin: center center;
+            content: '';
+            position: fixed;
+            z-index: 0;
+            pointer-events: none;
+            top: 50%;
+            left: 50%;
+            width: 165%;
+            min-width: 900px;
+            height: 165%;
+            min-height: 900px;
+            transform: translate(-50%, -50%) rotate(-14deg);
+            transform-origin: center center;
             background-image: url('../public/menus/LOGOTEMAKY.jpg');
-            background-size: 168px auto; background-repeat: repeat; background-position: 0 0;
-            opacity: 0.2; filter: brightness(1.15) contrast(1.08) saturate(0.88);
+            background-size: 112px auto;
+            background-repeat: repeat;
+            background-position: 0 0;
+            opacity: 0.42;
+            filter: contrast(1.18) saturate(1.12) brightness(0.97);
             animation: backgroundFloat 22s ease-in-out infinite;
         }
-        .landing-page { position:fixed; inset:0; z-index:1; display:flex; align-items:center; justify-content:center; background-color: rgba(0,0,0,0.35); }
-        .content-box { background: rgba(0,0,0,0.4); border:2px solid rgba(255,255,255,0.3); border-radius:25px; backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); display:flex; flex-direction:column; align-items:center; color:#fff; max-width: 400px; padding: 20px; gap: 12px; }
-        .logo-frame { display:flex; align-items:center; justify-content:center; width: min(92vw, 340px); max-height: 110px; }
-        .logo { width: 100%; max-height: 100px; height: auto; object-fit: contain; display: block; filter: drop-shadow(0 4px 20px rgba(0,0,0,0.5)); }
-        @media (max-width:767px){
-            body::before { width: 180%; height: 180%; background-size: 132px auto; opacity: 0.17; transform: translate(-50%, -50%) rotate(-12deg); }
-            .content-box { max-width: 360px; padding: 18px; gap: 10px; border-radius: 20px; }
-            .logo-frame { max-height: 96px; }
-            .logo { max-height: 88px; }
-        }
-        @media (max-width: 896px) and (orientation: landscape) {
-            body::before { background-size: 148px auto; transform: translate(-50%, -50%) rotate(-13deg); }
-        }
-        .menu-option { width:100%; max-width:300px; background: linear-gradient(135deg, rgba(255,255,255,.15), rgba(255,255,255,.05)); border:2px solid rgba(255,255,255,.4); color:#fff; padding:15px 20px; border-radius:15px; cursor:pointer; transition: all .4s cubic-bezier(.4,0,.2,1); text-align:center; font-size:18px; font-weight:500; letter-spacing:.5px; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); box-shadow:0 4px 15px rgba(0,0,0,.2), 0 0 0 .5px rgba(255,255,255,.1) inset; position:relative; overflow:hidden; text-decoration:none; }
-        .menu-option:hover { transform: translateY(-2px); }
-        .home-link { font-size:14px; color: rgba(255,255,255,0.85); text-decoration: none; border-bottom: 1px solid rgba(255,255,255,0.35); padding-bottom: 2px; }
-        .home-link:hover { color: #fff; }
-        .social-links { display:flex; gap:20px; }
-        .social-button { color:#fff; font-size:24px; transition: all .4s cubic-bezier(.4,0,.2,1); background: linear-gradient(135deg, rgba(255,255,255,.15), rgba(255,255,255,.05)); width:45px; height:45px; display:flex; align-items:center; justify-content:center; border-radius:50%; border:2px solid rgba(255,255,255,.4); text-decoration:none; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); box-shadow:0 4px 15px rgba(0,0,0,.2), 0 0 0 .5px rgba(255,255,255,.1) inset; }
 
-        .menu-container { position:fixed; inset:0; display:none; flex-direction:column; align-items:center; justify-content:flex-start; background-color: rgba(0,0,0,0.58); gap:20px; padding:20px 0 100px; overflow-y:auto; z-index:1500; -webkit-overflow-scrolling: touch; }
-        .menu-section { width:100%; display:flex; flex-direction:column; align-items:center; gap:20px; }
-        .menu-page { width:100%; display:flex; justify-content:center; padding:0 10px; }
-        .menu-page img { max-width:100%; height:auto; object-fit:contain; border-radius:8px; box-shadow:0 5px 15px rgba(0,0,0,.3); }
-        .back-button { position:fixed; top:20px; left:20px; display:none; background: rgba(0,0,0,.8); color:#fff; border:none; padding:10px 15px; border-radius:20px; cursor:pointer; z-index:2001; font-size:16px; }
-        @media (max-width: 767px) { .menu-page img { width: 95%; max-width: none; } }
-        @media (min-width: 1024px) { .menu-page img { max-width: 70%; } }
+        .landing-page {
+            position: fixed;
+            inset: 0;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(255, 255, 255, 0.28);
+        }
+
+        .content-box {
+            background: rgba(255, 255, 255, 0.92);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            border-radius: 25px;
+            padding: 22px 24px;
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+            color: #1a1a1a;
+            max-width: 400px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(255, 255, 255, 0.8) inset;
+        }
+
+        .logo-frame {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: min(92vw, 400px);
+            max-height: 280px;
+            box-shadow: none;
+            background: transparent;
+        }
+
+        .logo {
+            width: 100%;
+            max-width: 380px;
+            height: auto;
+            max-height: 260px;
+            object-fit: contain;
+            object-position: center;
+            display: block;
+        }
+
+        .menu-option {
+            width: 100%;
+            max-width: 300px;
+            background: linear-gradient(180deg, #fff, #f7f7f9);
+            border: 2px solid rgba(0, 0, 0, 0.12);
+            color: #111;
+            padding: 15px 20px;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            text-align: center;
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+        }
+
+        .menu-option:hover {
+            transform: translateY(-2px);
+            border-color: rgba(0, 0, 0, 0.2);
+            box-shadow: 0 8px 22px rgba(0, 0, 0, 0.1);
+        }
+
+        .home-link {
+            font-size: 14px;
+            color: #444;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+            padding-bottom: 2px;
+        }
+
+        .home-link:hover {
+            color: #000;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .social-button {
+            color: #222;
+            font-size: 22px;
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            background: #fff;
+            width: 46px;
+            height: 46px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            border: 2px solid rgba(0, 0, 0, 0.12);
+            text-decoration: none;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+        }
+
+        .social-button:hover {
+            transform: translateY(-2px);
+            border-color: rgba(0, 0, 0, 0.22);
+            color: #000;
+        }
+
+        @media (max-width: 767px) {
+            .content-box {
+                max-width: 360px;
+                padding: 18px;
+                gap: 12px;
+                border-radius: 20px;
+            }
+            .logo-frame {
+                max-height: 240px;
+            }
+            .logo {
+                max-width: 320px;
+                max-height: 220px;
+            }
+            body::before {
+                width: 180%;
+                height: 180%;
+                background-size: 88px auto;
+                opacity: 0.34;
+                transform: translate(-50%, -50%) rotate(-12deg);
+            }
+            .menu-container::before {
+                width: 180%;
+                height: 180%;
+                background-size: 88px auto;
+                opacity: 0.34;
+                transform: translate(-50%, -50%) rotate(-12deg);
+            }
+        }
+
+        @media (max-width: 896px) and (orientation: landscape) {
+            body::before {
+                background-size: 96px auto;
+                transform: translate(-50%, -50%) rotate(-13deg);
+            }
+            .menu-container::before {
+                background-size: 96px auto;
+                transform: translate(-50%, -50%) rotate(-13deg);
+            }
+        }
+
+        /* Visor: mismo fondo que la landing (gris + patrón + velo) */
+        .menu-container {
+            position: fixed;
+            inset: 0;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            background-color: #f4f4f6;
+            gap: 24px;
+            padding: 20px 0 100px;
+            overflow-y: auto;
+            z-index: 1500;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .menu-container::before {
+            content: '';
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            width: 165%;
+            min-width: 900px;
+            height: 165%;
+            min-height: 900px;
+            transform: translate(-50%, -50%) rotate(-14deg);
+            transform-origin: center center;
+            z-index: 0;
+            pointer-events: none;
+            background-image: url('../public/menus/LOGOTEMAKY.jpg');
+            background-size: 112px auto;
+            background-repeat: repeat;
+            background-position: 0 0;
+            opacity: 0.42;
+            filter: contrast(1.18) saturate(1.12) brightness(0.97);
+            animation: backgroundFloat 22s ease-in-out infinite;
+        }
+
+        /* Sin velo blanco aquí: si no, los laterales se ven como “hoja” encima del patrón */
+
+        .menu-section {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .menu-page {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            padding: 0 10px;
+            background: transparent;
+        }
+
+        .menu-page img {
+            display: block;
+            width: auto;
+            max-width: min(100%, 92vw);
+            height: auto;
+            object-fit: contain;
+            border-radius: 4px;
+            box-shadow: 0 10px 36px rgba(0, 0, 0, 0.25);
+        }
+
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            display: none;
+            background: #fff;
+            color: #111;
+            border: 2px solid rgba(0, 0, 0, 0.15);
+            padding: 10px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            z-index: 2001;
+            font-size: 16px;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+        }
+
+        .back-button:hover {
+            border-color: rgba(0, 0, 0, 0.28);
+            background: #fafafa;
+        }
+
+        @media (max-width: 767px) {
+            .menu-page {
+                padding: 0 6px;
+            }
+            .menu-page img {
+                max-width: min(100%, 94vw);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .menu-page img {
+                max-width: min(880px, 90vw);
+            }
+        }
     </style>
 </head>
 <body>
     <div class="landing-page">
         <div class="content-box">
             <div class="logo-frame">
-                <img src="../public/menus/LOGOTEMAKY.jpg" alt="Temaky Sushi Bar &amp; Grill" class="logo">
+                <img src="../public/menus/LOGOTEMAKY.jpg" alt="Temaky" class="logo">
             </div>
             <button type="button" class="menu-option" id="openMenuBtn">Ver menú</button>
             <a class="home-link" href="../">← Todos los menús</a>
@@ -94,17 +347,32 @@
         const landingPage = document.querySelector('.landing-page');
         const menuContainer = document.getElementById('menuContainer');
         const backButton = document.getElementById('backBtn');
-        document.getElementById('openMenuBtn').addEventListener('click', () => {
+
+        function openMenuViewer() {
             landingPage.style.display = 'none';
             menuContainer.style.display = 'flex';
             backButton.style.display = 'block';
             window.scrollTo({ top: 0, behavior: 'auto' });
-        });
-        backButton.addEventListener('click', () => {
+        }
+        function closeMenuViewer() {
             landingPage.style.display = 'flex';
             menuContainer.style.display = 'none';
             backButton.style.display = 'none';
-        });
+            if (location.hash === '#menu') {
+                history.replaceState(null, '', location.pathname + location.search);
+            }
+        }
+
+        document.getElementById('openMenuBtn').addEventListener('click', openMenuViewer);
+        backButton.addEventListener('click', closeMenuViewer);
+
+        function applyHashMenu() {
+            if (location.hash === '#menu') {
+                openMenuViewer();
+            }
+        }
+        applyHashMenu();
+        window.addEventListener('hashchange', applyHashMenu);
     </script>
 </body>
 </html>

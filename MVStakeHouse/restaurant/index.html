@@ -222,17 +222,32 @@
         const landingPage = document.querySelector('.landing-page');
         const menuContainer = document.getElementById('menuContainer');
         const backButton = document.getElementById('backBtn');
-        document.getElementById('openMenuBtn').addEventListener('click', () => {
+
+        function openMenuViewer() {
             landingPage.style.display = 'none';
             menuContainer.style.display = 'flex';
             backButton.style.display = 'block';
             window.scrollTo({ top: 0, behavior: 'auto' });
-        });
-        backButton.addEventListener('click', () => {
+        }
+        function closeMenuViewer() {
             landingPage.style.display = 'flex';
             menuContainer.style.display = 'none';
             backButton.style.display = 'none';
-        });
+            if (location.hash === '#menu') {
+                history.replaceState(null, '', location.pathname + location.search);
+            }
+        }
+
+        document.getElementById('openMenuBtn').addEventListener('click', openMenuViewer);
+        backButton.addEventListener('click', closeMenuViewer);
+
+        function applyHashMenu() {
+            if (location.hash === '#menu') {
+                openMenuViewer();
+            }
+        }
+        applyHashMenu();
+        window.addEventListener('hashchange', applyHashMenu);
     </script>
 </body>
 </html>
