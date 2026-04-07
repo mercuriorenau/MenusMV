@@ -191,6 +191,7 @@
                 <img src="../public/MVBARLOGO.png" alt="Marea Bar & Lounge" class="logo">
             </div>
             <button type="button" class="menu-option" id="openMenuBtn">Menú bebidas</button>
+            <button type="button" class="menu-option" id="openAlimentosBtn">Menú entradas y botanas</button>
             <a class="menu-option" href="../temaky/index.html?ref=bar#menu">Menú Temaky</a>
             <a class="menu-option" href="../restaurant/index.html?ref=bar#menu">Menú Marea Vista Steak House</a>
             <a class="home-link" href="../">← Todos los menús</a>
@@ -208,6 +209,9 @@
             <div class="menu-page"><img src="../public/menus/bar-drinks-01.webp" alt="Bar — página 1" loading="lazy"></div>
             <div class="menu-page"><img src="../public/menus/bar-drinks-02.webp" alt="Bar — página 2" loading="lazy"></div>
         </div>
+        <div id="barAlimentos" class="menu-section">
+            <div class="menu-page"><img src="../public/menus/bar-alimentos-01.webp" alt="Bar — entradas y botanas" loading="lazy"></div>
+        </div>
     </div>
 
     <script>
@@ -224,17 +228,32 @@
         const menuContainer = document.getElementById('menuContainer');
         const backButton = document.getElementById('backBtn');
         const openMenuBtn = document.getElementById('openMenuBtn');
+        const openAlimentosBtn = document.getElementById('openAlimentosBtn');
+        const barMenuSection = document.getElementById('barMenu');
+        const barAlimentosSection = document.getElementById('barAlimentos');
 
-        openMenuBtn.addEventListener('click', () => {
+        function showBarSection(which) {
+            const drinks = which === 'drinks';
+            barMenuSection.classList.toggle('active', drinks);
+            barAlimentosSection.classList.toggle('active', !drinks);
+        }
+
+        function openBarViewer(which) {
+            showBarSection(which);
             landingPage.style.display = 'none';
             menuContainer.style.display = 'flex';
             backButton.style.display = 'block';
             window.scrollTo({ top: 0, behavior: 'auto' });
-        });
+        }
+
+        openMenuBtn.addEventListener('click', () => openBarViewer('drinks'));
+        openAlimentosBtn.addEventListener('click', () => openBarViewer('alimentos'));
+
         backButton.addEventListener('click', () => {
             landingPage.style.display = 'flex';
             menuContainer.style.display = 'none';
             backButton.style.display = 'none';
+            showBarSection('drinks');
         });
     </script>
 </body>
